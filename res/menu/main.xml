@@ -4,10 +4,9 @@
     tools:context="org.mortalis.myactions.MainActivity" >
     
     <item
-        android:id="@+id/action_edit"
-        android:title="@string/action_edit"
-        app:showAsAction="always"
-        android:showAsAction="always"
-         />
-         
+      android:id="@+id/action_new"
+      app:showAsAction="always"
+      android:showAsAction="always"
+      android:icon="@drawable/ic_add_black_24dp"
+     />
 </menu>

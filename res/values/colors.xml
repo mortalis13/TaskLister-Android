@@ -1,23 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="red">#ffff0000</color>
-    <color name="green">#ff00ff00</color>
-    <color name="blue">#ff0000ff</color>
-    <color name="yellow">#ffffff00</color>
-    <color name="white">#ffffffff</color>
-    <color name="gray">#ffdddddd</color>
-    <color name="black">#ff000000</color>
-    
-    <color name="text">#ff555555</color>
-    
-    <color name="actionbar">#ffdddddd</color>
-    <color name="toolbar">#de6449</color>
-    <!-- <color name="toolbar">#f06d4f</color> -->
-    <!-- <color name="toolbar">#f16c49</color> -->
-    
-    <color name="toolbarII">#327b96</color>
-    <color name="toolbarII_pressed">#3788a6</color>
-    
-    <color name="actionbar_popup_light">#ff555555</color>
-    <color name="actionbar_popup_dark">#ffeeeeee</color>
+  <color name="transparent">@android:color/transparent</color>
+  
+  <color name="red">#ffff0000</color>
+  <color name="green">#ff00ff00</color>
+  <color name="blue">#ff0000ff</color>
+  <color name="yellow">#ffffff00</color>
+  <color name="white">#ffffffff</color>
+  <color name="gray">#ffdddddd</color>
+  <color name="black">#ff000000</color>
+  
+  <color name="text">#ff555555</color>
+  
+  <color name="actionbar">#ffdddddd</color>
+  <color name="toolbar">#de6449</color>
+  <!-- <color name="toolbar">#f06d4f</color> -->
+  <!-- <color name="toolbar">#f16c49</color> -->
+  
+  <color name="toolbarII">#327b96</color>
+  <color name="toolbarII_pressed">#3788a6</color>
+  
+  <color name="actionbar_popup_light">#ff555555</color>
+  <color name="actionbar_popup_dark">#ffeeeeee</color>
+  
+  
+  <color name="task_list_item_button_background_default">@color/transparent</color>
+  <color name="task_list_item_button_background_pressed">#ddd</color>
 </resources>

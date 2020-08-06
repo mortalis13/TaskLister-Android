@@ -1,78 +1,23 @@
 <resources>
+  <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <item name="android:windowAnimationStyle">@null</item>
+  </style>
 
-    <!--
-        Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
-    -->
-    <style name="AppBaseTheme" parent="android:Theme.Light">
-        <!--
-            Theme customizations available in newer API levels can go in
-            res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
-        -->
-    </style>
-
-    <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.ActionBar">
-      <!-- <item name="android:background">@color/toolbar</item> -->
-      <item name="android:textColorPrimary">@color/white</item>
-      <item name="android:textColorSecondary">@color/white</item>
-      <item name="actionMenuTextColor">@color/white</item>
-      
-      <!-- <item name="android:textColorPrimaryInverse">@color/white</item> -->
-    </style>
+  <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.ActionBar">
+    <!-- <item name="android:background">@color/toolbar</item> -->
+    <item name="android:textColorPrimary">@color/white</item>
+    <item name="android:textColorSecondary">@color/white</item>
+    <item name="actionMenuTextColor">@color/white</item>
     
-    <style name="ToolbarThemeII" parent="ThemeOverlay.AppCompat.ActionBar">
-      <!-- <item name="android:background">@color/toolbarII</item> -->
-      <!-- <item name="android:background">@drawable/toolbar_background</item> -->
-      
-      <item name="android:textColorPrimary">@color/white</item>
-      <item name="actionMenuTextColor">@color/white</item>
-      <item name="android:textColorSecondary">@color/white</item>
-      <item name="actionOverflowButtonStyle">@style/ToolbarOverflowButton</item>
-      
-      <!-- <item name="actionMenuTextColor">?android:attr/textColorPrimaryDisableOnly</item> -->
-      <!-- <item name="android:textColorPrimaryDisableOnly">@color/white</item> -->
-      
-      <item name="actionBarItemBackground">@drawable/toolbar_button_background</item>
-      <!-- <item name="actionBarItemBackground">@color/green</item> -->
-      <!-- <item name="selectableItemBackground">@color/red</item> -->
-    </style>
-    
-    <style name="ToolbarThemeII.Popup" parent="ThemeOverlay.AppCompat.Light">
-      <!-- <item name="android:colorBackground">@color/actionbar_popup_dark</item> -->
-      <!-- <item name="android:background">@color/toolbarII</item> -->
-      <!-- <item name="listChoiceBackgroundIndicator">@android:color/white</item> -->
-      
-      <item name="android:colorBackground">@color/toolbarII</item>
-      <item name="android:textColor">@color/white</item>
-      <item name="android:textColorPrimary">@color/white</item>
-    </style>
-    
-    
-    <style name="ToolbarOverflowButton" parent="Widget.AppCompat.Light.ActionButton.Overflow">
-        <!-- <item name="android:minWidth">@dimen/abc_action_button_min_width_overflow_material</item> -->
-        <item name="android:minWidth">@dimen/abc_action_button_min_width_material</item>
-      </style>
-    
-    <style name="ActionBar.Popup.Lighter" parent="ThemeOverlay.AppCompat.Light">
-      <item name="android:colorBackground">@color/actionbar_popup_light</item>
-    </style>
-    
-    <style name="ActionBar.Popup.Darker" parent="ThemeOverlay.AppCompat.Light">
-      <item name="android:colorBackground">@color/actionbar_popup_dark</item>
-    </style>
-    
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-      <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
-      
-      <item name="android:colorForeground">@color/text</item>
-      <item name="android:textColorPrimary">@color/text</item>
-      <item name="android:textColorSecondary">@color/text</item>
-      <item name="android:textColorTertiary">@color/text</item>
-    </style>
-
-    <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
-      <item name="spinBars">true</item>
-    </style>
+    <!-- <item name="android:textColorPrimaryInverse">@color/white</item> -->
+  </style>
+  
+  
+  <style name="TaskItemButtonStyle">
+    <item name="android:layout_width">40dp</item>
+    <item name="android:layout_height">match_parent</item>
+    <item name="android:tint">#777</item>
+    <item name="android:background">@drawable/task_list_item_button_background</item>
+  </style>
 
 </resources>
