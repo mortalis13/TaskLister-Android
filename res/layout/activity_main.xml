@@ -6,35 +6,53 @@
     android:paddingLeft="0dp"
     android:paddingRight="0dp" >
     
-    <android.support.v7.widget.Toolbar
-      android:id="@+id/my_toolbar"
-      android:layout_width="match_parent"
-      android:layout_height="?attr/actionBarSize"
-      android:background="@color/toolbar"
-      android:elevation="4dp"
-      android:theme="@style/ToolbarTheme"
-    />
-
-       <!-- app:contentInsetRight="50dp" -->
-       <!-- app:contentInsetEnd="50dp" -->
-       <!-- android:background="@color/actionbar" -->
-       
-    <LinearLayout 
-      android:layout_width="match_parent" 
+  <!-- === HEADER === -->
+  <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="54dp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:background="@color/toolbar_background"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+  >
+    <TextView
+      android:layout_width="wrap_content"
       android:layout_height="match_parent"
-      android:paddingLeft="0dp"
-      android:paddingRight="0dp" >
-      
-        <ListView
-            android:id="@+id/lvItems"
-            android:background="@color/white"
-            android:divider="#dddddd" 
-            android:dividerHeight="1dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-        </ListView>
-      
-    </LinearLayout>
+      android:paddingLeft="16dp"
+      android:gravity="center_vertical"
+      android:text="@string/app_name"
+      android:textSize="20dp"
+      android:textColor="#fff"
+    />
+    
+    <ImageButton
+      android:id="@+id/btnAddTask"
+      android:layout_width="54dp"
+      android:layout_height="match_parent"
+      android:src="@drawable/ic_add_black_24dp"
+      android:tint="#fff"
+      android:background="@drawable/toolbar_button_background"
+      android:layout_alignParentRight="true"
+    />
+  </RelativeLayout>
+  
+  
+  <!-- === MAIN === -->
+  <LinearLayout 
+    android:layout_width="match_parent" 
+    android:layout_height="match_parent"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp" >
+    <ListView
+      android:id="@+id/lvItems"
+      android:background="@color/white"
+      android:divider="#dddddd" 
+      android:dividerHeight="1dp"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+    />
+  </LinearLayout>
   
   <LinearLayout
     android:id="@+id/focusCatch"

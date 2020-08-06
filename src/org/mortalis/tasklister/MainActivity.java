@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
   private Context context;
   
   private ListView lvItems;
+  private ImageButton btnAddTask;
   private LinearLayout focusCatch;
   
   private TaskListAdapter listAdapter;
@@ -47,13 +48,15 @@ public class MainActivity extends AppCompatActivity {
     context = this;
     Fun.setContext(context);
     
-    Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-    setSupportActionBar(myToolbar);
-    
     Log.d("main", "onCreate");
     
-    lvItems = (ListView) findViewById(R.id.lvItems);
+    lvItems = findViewById(R.id.lvItems);
+    btnAddTask = findViewById(R.id.btnAddTask);
     focusCatch = findViewById(R.id.focusCatch);
+    
+    btnAddTask.setOnClickListener(v -> {
+      addItem();
+    });
     
     loadTaskList();
     infoUpdated = true;
@@ -69,11 +72,6 @@ public class MainActivity extends AppCompatActivity {
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
     int id = item.getItemId();
-    switch(id){
-    case R.id.action_new:
-      addItem();
-      return true;
-    }
     return super.onOptionsItemSelected(item);
   }
   
@@ -114,7 +112,6 @@ public class MainActivity extends AppCompatActivity {
       listData.add(new TaskItem(i, items[i], false));
     }
     
-    // int listLayout = R.layout.data_list_item;
     int listLayout = R.layout.task_list_item;
     listAdapter = new TaskListAdapter(this, listLayout, listData, selectedItems);
     lvItems.setAdapter(listAdapter);

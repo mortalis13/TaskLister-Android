@@ -99,6 +99,13 @@ task appStartRelease(type: Exec, dependsOn: 'installRelease') {
 }
 
 
+tasks.withType(JavaCompile) {
+  options.compilerArgs << '-Xlint:deprecation'
+  // options.compilerArgs << '-Xlint:unchecked'
+  // options.deprecation = true
+}
+
+
 // -- generate classpath libs for Eclipse
 androidEclipse {
   srcDir 'src'

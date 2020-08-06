@@ -99,7 +99,7 @@ public class Fun {
   
   public static int getColor(int resourceId) {
     if (context == null) return 0;
-    return context.getResources().getColor(resourceId);
+    return context.getResources().getColor(resourceId, null);
   }
   
   public static String getString(int resourceId) {
@@ -496,12 +496,12 @@ public class Fun {
   public static void changeOverScrollGlowColor(Resources res, int colorID) {
     try {
       final int glowDrawableId = res.getIdentifier("overscroll_glow", "drawable", "android");
-      final Drawable overscrollGlow = res.getDrawable(glowDrawableId);
-      overscrollGlow.setColorFilter(res.getColor(colorID), PorterDuff.Mode.SRC_ATOP);
+      final Drawable overscrollGlow = res.getDrawable(glowDrawableId, null);
+      overscrollGlow.setColorFilter(res.getColor(colorID, null), PorterDuff.Mode.SRC_ATOP);
 
       final int edgeDrawableId = res.getIdentifier("overscroll_edge", "drawable", "android");
-      final Drawable overscrollEdge = res.getDrawable(edgeDrawableId);
-      overscrollEdge.setColorFilter(res.getColor(colorID), PorterDuff.Mode.SRC_ATOP);
+      final Drawable overscrollEdge = res.getDrawable(edgeDrawableId, null);
+      overscrollEdge.setColorFilter(res.getColor(colorID, null), PorterDuff.Mode.SRC_ATOP);
     }
     catch (Exception e) {
       e.printStackTrace();
