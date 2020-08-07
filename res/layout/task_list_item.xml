@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
   android:id="@+id/itemRow"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:orientation="horizontal"
   android:minHeight="40dp"
+  android:gravity="center_vertical"
   android:descendantFocusability="blocksDescendants"
 >
   <!-- android:descendantFocusability="blocksDescendants" -->
@@ -14,10 +16,6 @@
     android:id="@+id/itemCheck"  
     android:layout_width="wrap_content"  
     android:layout_height="match_parent"  
-    android:layout_alignParentLeft="true" 
-    android:layout_centerVertical="true"
-    android:layout_alignParentTop="true"
-    android:layout_alignParentBottom="true"
     android:layout_marginLeft="4dp"
     android:layout_marginRight="2dp"
     android:focusable="false"
@@ -26,11 +24,11 @@
   
   <TextView
     android:id="@+id/itemText"
-    android:layout_width="0dp"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_weight="1"
-    android:paddingTop="12dp"
-    android:paddingBottom="12dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="15dp"
     android:paddingLeft="4dp"
     android:paddingRight="4dp"
     android:gravity="center_vertical"
@@ -41,11 +39,11 @@
   
   <EditText
     android:id="@+id/itemEditText"
-    android:layout_width="0dp"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_weight="1"
-    android:paddingTop="12dp"
-    android:paddingBottom="12dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="15dp"
     android:paddingLeft="4dp"
     android:paddingRight="4dp"
     android:background="@null"
