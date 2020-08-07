@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
 import java.util.Comparator;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Random;
 import java.nio.ByteBuffer;
 
@@ -42,6 +44,8 @@ import android.widget.Toast;
 public class Fun {
   
   private static Context context;
+  
+  public static final String DATE_TIME_FORMAT = "dd/MM/yyyy HH:mm:ss";
   
   public static void setContext(Context context) {
     if (Fun.context == null) Fun.context = context;
@@ -257,6 +261,30 @@ public class Fun {
     }
     
     return result;
+  }
+  
+  public static String formatDate(Date date) {
+    try {
+      return new SimpleDateFormat(DATE_TIME_FORMAT).format(date);
+    }
+    catch(Exception e) {
+      Fun.loge("formatDate() Exception, " + e);
+      e.printStackTrace();
+    }
+    
+    return null;
+  }
+  
+  public static Date unformatDate(String dateStr) {
+    try {
+      return new SimpleDateFormat(DATE_TIME_FORMAT).parse(dateStr);
+    }
+    catch(Exception e) {
+      Fun.loge("unformatDate() Exception, " + e);
+      e.printStackTrace();
+    }
+    
+    return null;
   }
   
   

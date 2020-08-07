@@ -31,11 +31,12 @@ public class MainActivity extends AppCompatActivity {
   
   private Context context;
   
-  private ListView lvItems;
+  private ListView itemsListView;
   private ImageButton btnAddTask;
   private LinearLayout focusCatch;
   
   private TaskListAdapter listAdapter;
+  private List<TaskItem> listItems;
   
   private boolean infoUpdated;
   
@@ -47,12 +48,16 @@ public class MainActivity extends AppCompatActivity {
     
     context = this;
     Fun.setContext(context);
+    DatabaseManager.init(context);
     
-    Log.d("main", "onCreate");
-    
-    lvItems = findViewById(R.id.lvItems);
+    itemsListView = findViewById(R.id.itemsListView);
     btnAddTask = findViewById(R.id.btnAddTask);
     focusCatch = findViewById(R.id.focusCatch);
+    
+    int listLayout = R.layout.task_list_item;
+    listItems = new ArrayList<>();
+    listAdapter = new TaskListAdapter(this, listLayout, listItems);
+    itemsListView.setAdapter(listAdapter);
     
     btnAddTask.setOnClickListener(v -> {
       addItem();
@@ -64,21 +69,9 @@ public class MainActivity extends AppCompatActivity {
 
 
   @Override
-  public boolean onCreateOptionsMenu(Menu menu) {
-    getMenuInflater().inflate(R.menu.main, menu);
-    return true;
-  }
-
-  @Override
-  public boolean onOptionsItemSelected(MenuItem item) {
-    int id = item.getItemId();
-    return super.onOptionsItemSelected(item);
-  }
-  
-  @Override
   protected void onResume() {
-    Log.d("main", "onResume");
-    Log.d("main", "onResume::infoUpdated: " + infoUpdated);
+    Fun.logd("onResume");
+    Fun.logd("onResume::infoUpdated: " + infoUpdated);
     
     loadTaskList();
     infoUpdated = false;
@@ -89,37 +82,16 @@ public class MainActivity extends AppCompatActivity {
 // ------------------------------------------------ Actions ------------------------------------------------
   
   public void loadTaskList() {
-    if(infoUpdated) return;
+    if (infoUpdated) return;
     
-    DatabaseManager db = new DatabaseManager(this);
-    String info = db.getTaskList();
-    int[] selectedItems = db.getSelectedTasks();
-    
-    if(info != null){
-      loadInfo(info, selectedItems);
-    }
+    List<TaskItem> items = DatabaseManager.getTasks();
+    listAdapter.updateItems(items);
+    listAdapter.update();
   }
   
   public void addItem() {
     Fun.logd("addItem()");
     listAdapter.addItem();
-  }
-  
-  public void loadInfo(String info, int[] selectedItems) {
-    String[] items = info.split("\n");
-    List<TaskItem> listData = new ArrayList<>();
-    for (int i = 0; i < items.length; i++) {
-      listData.add(new TaskItem(i, items[i], false));
-    }
-    
-    int listLayout = R.layout.task_list_item;
-    listAdapter = new TaskListAdapter(this, listLayout, listData, selectedItems);
-    lvItems.setAdapter(listAdapter);
-  }
-  
-  public void setTaskChecked(int position, boolean state) {
-    DatabaseManager db = new DatabaseManager(this);
-    db.setTaskChecked(position, state);
   }
   
   
@@ -134,22 +106,8 @@ public class MainActivity extends AppCompatActivity {
   
   // ----------------------------------- Classes ----------------------
   
-  private class TaskItem {
-    int id;
-    String text;
-    boolean checked;
-    boolean editMode;
-    
-    public TaskItem(int id, String text, boolean checked) {
-      this.id = id;
-      this.text = text;
-      this.checked = checked;
-    }
-  }
-  
   private class TaskListAdapter extends ArrayAdapter<TaskItem> {
     private TaskListAdapter taskAdapter;
-    private LayoutInflater inflater;
     private int itemLayoutId;
     
     private List<TaskItem> items;
@@ -157,15 +115,8 @@ public class MainActivity extends AppCompatActivity {
 
     public TaskListAdapter(Context context, int itemLayoutId, List<TaskItem> items) {
       super(context, itemLayoutId, items);
-      inflater = LayoutInflater.from(context);
-      this.items = items;
-    }
-    
-    public TaskListAdapter(Context context, int itemLayoutId, List<TaskItem> items, int[] selectedItems) {
-      this(context, itemLayoutId, items);
       this.itemLayoutId = itemLayoutId;
-      this.selectedItems = selectedItems;
-      // inflater = LayoutInflater.from(context);
+      this.items = items;
     }
     
     @Override
@@ -199,7 +150,6 @@ public class MainActivity extends AppCompatActivity {
       
       holder.btnEditItem.setOnClickListener(v -> {
         item.editMode = true;
-        // notifyDataSetChanged();
         loadEditView(holder);
         // holder.itemEditText.setText(item.text);
         
@@ -214,6 +164,7 @@ public class MainActivity extends AppCompatActivity {
       
       holder.btnDeleteItem.setOnClickListener(v -> {
         removeItem(position);
+        DatabaseManager.removeTask(item.id);
       });
       
       holder.btnEditConfirm.setOnClickListener(v -> {
@@ -223,7 +174,14 @@ public class MainActivity extends AppCompatActivity {
           item.text = newText;
         }
         
-        item.id = items.size();
+        // item.id = items.size();
+        if (item.id == -1) {
+          DatabaseManager.createTask(item);
+          if (item.id == -1) Fun.loge("ERROR: Created task not found");
+        }
+        else {
+          DatabaseManager.updateTask(item);
+        }
         holder.btnEditCancel.performClick();
       });
       
@@ -237,10 +195,10 @@ public class MainActivity extends AppCompatActivity {
         }
       });
       
-      
       holder.itemRow.setOnClickListener(v -> {
         item.checked = !item.checked;
         holder.itemCheck.setChecked(item.checked);
+        DatabaseManager.updateTask(item);
       });
       
       
@@ -311,6 +269,18 @@ public class MainActivity extends AppCompatActivity {
         e.printStackTrace();
         Fun.toast(context, "Error removing preset");
       }
+    }
+    
+    
+    public void updateItems(List<TaskItem> items) {
+      this.items.clear();
+      for (TaskItem item: items) {
+        this.items.add(item);
+      }
+    }
+    
+    public void update() {
+      notifyDataSetChanged();
     }
     
     
