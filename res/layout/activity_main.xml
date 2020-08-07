@@ -28,6 +28,17 @@
     />
     
     <ImageButton
+      android:id="@+id/btnImportText"
+      android:layout_width="54dp"
+      android:layout_height="match_parent"
+      android:paddingTop="2dp"
+      android:src="@drawable/ic_file_download_black_24dp"
+      android:tint="#fff"
+      android:background="@drawable/toolbar_button_background"
+      android:layout_toLeftOf="@+id/btnAddTask"
+    />
+    
+    <ImageButton
       android:id="@+id/btnAddTask"
       android:layout_width="54dp"
       android:layout_height="match_parent"

@@ -106,7 +106,7 @@ public class DatabaseManager {
     return result;
   }
   
-  public static List<TaskItem> getTasks() {
+  public static List<TaskItem> getTasks(boolean reverse) {
     Fun.logd("DatabaseManager.getTask()");
     
     List<TaskItem> result = new ArrayList<>();
@@ -115,7 +115,8 @@ public class DatabaseManager {
     try {
       String sql = "SELECT * FROM " + DBHelper.TASK_TABLE_NAME + 
         " WHERE " + DBHelper.TASK_COL_ARCHIVED + "=0" +
-        " ORDER BY " + DBHelper.TASK_COL_ID + " DESC;";
+        " ORDER BY " + DBHelper.TASK_COL_ID;
+      if (reverse) sql += " DESC";
       cursor = db.rawQuery(sql, null);
       
       for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
@@ -178,6 +179,18 @@ public class DatabaseManager {
     }
     catch (Exception e) {
       Fun.loge("removeTask() Exception, " + e);
+      e.printStackTrace();
+    }
+  }
+  
+  public static void removeAllTasks() {
+    Fun.logd("DatabaseManager.removeAllTasks()");
+    
+    try {
+      int res = db.delete(DBHelper.TASK_TABLE_NAME, null, null);
+    }
+    catch (Exception e) {
+      Fun.loge("removeAllTasks() Exception, " + e);
       e.printStackTrace();
     }
   }

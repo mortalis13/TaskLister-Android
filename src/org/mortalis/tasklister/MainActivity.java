@@ -3,6 +3,8 @@ package org.mortalis.tasklister;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.home.file_chooser_lib.FilePickerDialog;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +25,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.os.Handler;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
@@ -32,11 +35,13 @@ public class MainActivity extends AppCompatActivity {
   private Context context;
   
   private ListView itemsListView;
-  private ImageButton btnAddTask;
   private LinearLayout focusCatch;
+  private ImageButton btnAddTask;
+  private ImageButton btnImportText;
   
   private TaskListAdapter listAdapter;
   private List<TaskItem> listItems;
+  private FilePickerDialog filePickerDialog;
   
   private boolean infoUpdated;
   
@@ -50,8 +55,11 @@ public class MainActivity extends AppCompatActivity {
     Fun.setContext(context);
     DatabaseManager.init(context);
     
+    init();
+    
     itemsListView = findViewById(R.id.itemsListView);
     btnAddTask = findViewById(R.id.btnAddTask);
+    btnImportText = findViewById(R.id.btnImportText);
     focusCatch = findViewById(R.id.focusCatch);
     
     int listLayout = R.layout.task_list_item;
@@ -61,6 +69,10 @@ public class MainActivity extends AppCompatActivity {
     
     btnAddTask.setOnClickListener(v -> {
       addItem();
+    });
+    
+    btnImportText.setOnClickListener(v -> {
+      importFileAction();
     });
     
     loadTaskList();
@@ -81,10 +93,15 @@ public class MainActivity extends AppCompatActivity {
   
 // ------------------------------------------------ Actions ------------------------------------------------
   
+  private void init() {
+    filePickerDialog = new FilePickerDialog(context);
+    filePickerDialog.setExtensionFilter("txt");
+  }
+  
   public void loadTaskList() {
-    if (infoUpdated) return;
+    // if (infoUpdated) return;
     
-    List<TaskItem> items = DatabaseManager.getTasks();
+    List<TaskItem> items = DatabaseManager.getTasks(false);
     listAdapter.updateItems(items);
     listAdapter.update();
   }
@@ -94,13 +111,21 @@ public class MainActivity extends AppCompatActivity {
     listAdapter.addItem();
   }
   
-  
-// ------------------------------------------------ Service ------------------------------------------------
-  
-  public void toast(String msg){
-    int duration = Toast.LENGTH_LONG;
-    Toast toast = Toast.makeText(MainActivity.this, msg, duration);
-    toast.show();
+  public void importFileAction() {
+    filePickerDialog.setFileSelectedListener(file -> {
+      String text = Fun.readFile(file);
+      if (text == null) return;
+      
+      String[] items = text.split("\n");
+      DatabaseManager.removeAllTasks();
+      
+      for (String item: items) {
+        TaskItem task = new TaskItem();
+        task.text = item;
+        DatabaseManager.createTask(task);
+        loadTaskList();
+      }
+    }).showDialog();
   }
   
   
@@ -256,6 +281,7 @@ public class MainActivity extends AppCompatActivity {
     public void addItem() {
       TaskItem item = new TaskItem(-1, "", false);
       item.editMode = true;
+      // items.add(item);
       items.add(0, item);
       notifyDataSetChanged();
     }
