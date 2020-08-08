@@ -173,6 +173,15 @@ public class MainActivity extends AppCompatActivity {
       // -- Actions
       final View itemView = convertView;
       
+      holder.itemRow.setOnClickListener(v -> {
+        holder.itemCheck.setChecked(!item.checked);
+      });
+      
+      holder.itemCheck.setOnCheckedChangeListener((v, isChecked) -> {
+        item.checked = isChecked;
+        DatabaseManager.updateTask(item);
+      });
+      
       holder.btnEditItem.setOnClickListener(v -> {
         item.editMode = true;
         loadEditView(holder);
@@ -218,12 +227,6 @@ public class MainActivity extends AppCompatActivity {
         if (item.id == -1) {
           removeItem(position);
         }
-      });
-      
-      holder.itemRow.setOnClickListener(v -> {
-        item.checked = !item.checked;
-        holder.itemCheck.setChecked(item.checked);
-        DatabaseManager.updateTask(item);
       });
       
       
