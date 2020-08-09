@@ -100,7 +100,6 @@ public class MainActivity extends AppCompatActivity {
   
   public void loadTaskList() {
     // if (infoUpdated) return;
-    
     List<TaskItem> items = DatabaseManager.getTasks(false);
     listAdapter.updateItems(items);
     listAdapter.update();
@@ -208,7 +207,6 @@ public class MainActivity extends AppCompatActivity {
           item.text = newText;
         }
         
-        // item.id = items.size();
         if (item.id == -1) {
           DatabaseManager.createTask(item);
           if (item.id == -1) Fun.loge("ERROR: Created task not found");
@@ -233,7 +231,6 @@ public class MainActivity extends AppCompatActivity {
       // -- Load Data
       holder.itemText.setText(item.text);
       holder.itemEditText.setText(item.text);
-      // holder.itemEditText.setClickable(false);
       holder.itemCheck.setChecked(item.checked);
       
       if (item.editMode) {
@@ -241,10 +238,6 @@ public class MainActivity extends AppCompatActivity {
         new Handler().post(() -> {
           holder.itemEditText.requestFocus();
           holder.itemEditText.selectAll();
-          
-          // focusCatch.requestFocus();
-          // Fun.showKeyboard(focusCatch, 100);
-          // Fun.showKeyboard(holder.itemEditText, 100);
         });
         
         if (item.id == -1) {

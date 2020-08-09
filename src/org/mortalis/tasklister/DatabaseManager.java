@@ -115,7 +115,8 @@ public class DatabaseManager {
     try {
       String sql = "SELECT * FROM " + DBHelper.TASK_TABLE_NAME + 
         " WHERE " + DBHelper.TASK_COL_ARCHIVED + "=0" +
-        " ORDER BY " + DBHelper.TASK_COL_ID;
+        " ORDER BY " + DBHelper.TASK_COL_TEXT;
+        // " ORDER BY " + DBHelper.TASK_COL_ID;
       if (reverse) sql += " DESC";
       cursor = db.rawQuery(sql, null);
       
