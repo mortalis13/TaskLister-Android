@@ -41,6 +41,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+
 public class Fun {
   
   private static Context context;
@@ -103,7 +104,7 @@ public class Fun {
   
   public static int getColor(int resourceId) {
     if (context == null) return 0;
-    return context.getResources().getColor(resourceId, null);
+    return context.getResources().getColor(resourceId);
   }
   
   public static String getString(int resourceId) {
@@ -525,11 +526,11 @@ public class Fun {
     try {
       final int glowDrawableId = res.getIdentifier("overscroll_glow", "drawable", "android");
       final Drawable overscrollGlow = res.getDrawable(glowDrawableId, null);
-      overscrollGlow.setColorFilter(res.getColor(colorID, null), PorterDuff.Mode.SRC_ATOP);
+      overscrollGlow.setColorFilter(res.getColor(colorID), PorterDuff.Mode.SRC_ATOP);
 
       final int edgeDrawableId = res.getIdentifier("overscroll_edge", "drawable", "android");
       final Drawable overscrollEdge = res.getDrawable(edgeDrawableId, null);
-      overscrollEdge.setColorFilter(res.getColor(colorID, null), PorterDuff.Mode.SRC_ATOP);
+      overscrollEdge.setColorFilter(res.getColor(colorID), PorterDuff.Mode.SRC_ATOP);
     }
     catch (Exception e) {
       e.printStackTrace();

@@ -215,6 +215,7 @@ public class MainActivity extends AppCompatActivity {
           DatabaseManager.updateTask(item);
         }
         holder.btnEditCancel.performClick();
+        loadTaskList();
       });
       
       holder.btnEditCancel.setOnClickListener(v -> {
