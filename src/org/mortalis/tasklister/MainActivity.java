@@ -28,6 +28,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
+import android.widget.EditText;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
   private LinearLayout focusCatch;
   private ImageButton btnAddTask;
   private ImageButton btnImportText;
+  private EditText taskText;
   
   private TaskListAdapter listAdapter;
   private List<TaskItem> listItems;
@@ -60,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
     itemsListView = findViewById(R.id.itemsListView);
     btnAddTask = findViewById(R.id.btnAddTask);
     btnImportText = findViewById(R.id.btnImportText);
+    taskText = findViewById(R.id.taskText);
     focusCatch = findViewById(R.id.focusCatch);
     
     int listLayout = R.layout.task_list_item;
@@ -73,6 +76,11 @@ public class MainActivity extends AppCompatActivity {
     
     btnImportText.setOnClickListener(v -> {
       importFileAction();
+    });
+    
+    taskText.setOnEditorActionListener((v, actionId, event) -> {
+      addItem();
+      return true;
     });
     
     loadTaskList();
@@ -107,7 +115,12 @@ public class MainActivity extends AppCompatActivity {
   
   public void addItem() {
     Fun.logd("addItem()");
-    listAdapter.addItem();
+    String text = taskText.getText().toString();
+    if (text.length() == 0) return;
+    
+    listAdapter.addItem(text);
+    taskText.setText("");
+    // focusCatch.requestFocus();
   }
   
   public void importFileAction() {
@@ -275,12 +288,14 @@ public class MainActivity extends AppCompatActivity {
       holder.btnEditCancel.setVisibility(View.GONE);
     }
     
-    public void addItem() {
+    public void addItem(String text) {
       TaskItem item = new TaskItem(-1, "", false);
-      item.editMode = true;
-      // items.add(item);
-      items.add(0, item);
-      notifyDataSetChanged();
+      item.text = text;
+      
+      DatabaseManager.createTask(item);
+      if (item.id == -1) Fun.loge("ERROR: Created task not found");
+      loadTaskList();
+      // notifyDataSetChanged();
     }
     
     public void removeItem(int pos) {

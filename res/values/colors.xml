@@ -29,4 +29,7 @@
   
   <color name="toolbar_button_background_pressed">#cc5b44</color>
   <color name="toolbar_button_background_default">@color/transparent</color>
+  
+  <color name="gen_button_background_pressed">#bbb</color>
+  <color name="gen_button_background_default">#ddd</color>
 </resources>
