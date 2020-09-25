@@ -104,6 +104,8 @@ public class MainActivity extends AppCompatActivity {
   private void init() {
     filePickerDialog = new FilePickerDialog(context);
     filePickerDialog.setExtensionFilter("txt");
+    
+    Fun.changeOverScrollGlowColor(getResources(), R.color.toolbar_background);
   }
   
   public void loadTaskList() {

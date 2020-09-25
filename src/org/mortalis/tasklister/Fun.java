@@ -39,7 +39,7 @@ import android.widget.FrameLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import android.support.v4.content.res.ResourcesCompat;
 
 
 public class Fun {
@@ -525,11 +525,12 @@ public class Fun {
   public static void changeOverScrollGlowColor(Resources res, int colorID) {
     try {
       final int glowDrawableId = res.getIdentifier("overscroll_glow", "drawable", "android");
-      final Drawable overscrollGlow = res.getDrawable(glowDrawableId, null);
+      
+      final Drawable overscrollGlow = ResourcesCompat.getDrawable(res, glowDrawableId, null);
       overscrollGlow.setColorFilter(res.getColor(colorID), PorterDuff.Mode.SRC_ATOP);
 
       final int edgeDrawableId = res.getIdentifier("overscroll_edge", "drawable", "android");
-      final Drawable overscrollEdge = res.getDrawable(edgeDrawableId, null);
+      final Drawable overscrollEdge = ResourcesCompat.getDrawable(res, edgeDrawableId, null);
       overscrollEdge.setColorFilter(res.getColor(colorID), PorterDuff.Mode.SRC_ATOP);
     }
     catch (Exception e) {
