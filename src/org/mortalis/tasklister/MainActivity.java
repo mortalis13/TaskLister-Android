@@ -68,6 +68,9 @@ public class MainActivity extends AppCompatActivity {
     int listLayout = R.layout.task_list_item;
     listItems = new ArrayList<>();
     listAdapter = new TaskListAdapter(this, listLayout, listItems);
+    listAdapter.setInternalItemClickedListener(() -> {
+      taskText.clearFocus();
+    });
     itemsListView.setAdapter(listAdapter);
     
     btnAddTask.setOnClickListener(v -> {
@@ -145,13 +148,19 @@ public class MainActivity extends AppCompatActivity {
   
   // ----------------------------------- Classes ----------------------
   
+  public interface InternalItemClickListener {
+    public void onItemClicked();
+  }
+  
   private class TaskListAdapter extends ArrayAdapter<TaskItem> {
     private TaskListAdapter taskAdapter;
     private int itemLayoutId;
     
     private List<TaskItem> items;
     private int[] selectedItems;
-
+    
+    private InternalItemClickListener itemClickListener;
+    
     public TaskListAdapter(Context context, int itemLayoutId, List<TaskItem> items) {
       super(context, itemLayoutId, items);
       this.itemLayoutId = itemLayoutId;
@@ -189,6 +198,7 @@ public class MainActivity extends AppCompatActivity {
       
       holder.itemRow.setOnClickListener(v -> {
         holder.itemCheck.setChecked(!item.checked);
+        if (itemClickListener != null) itemClickListener.onItemClicked();
       });
       
       holder.itemCheck.setOnCheckedChangeListener((v, isChecked) -> {
@@ -321,6 +331,11 @@ public class MainActivity extends AppCompatActivity {
     
     public void update() {
       notifyDataSetChanged();
+    }
+    
+    
+    public void setInternalItemClickedListener(InternalItemClickListener itemClickListener) {
+      this.itemClickListener = itemClickListener;
     }
     
     

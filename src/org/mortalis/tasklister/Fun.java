@@ -525,7 +525,6 @@ public class Fun {
   public static void changeOverScrollGlowColor(Resources res, int colorID) {
     try {
       final int glowDrawableId = res.getIdentifier("overscroll_glow", "drawable", "android");
-      
       final Drawable overscrollGlow = ResourcesCompat.getDrawable(res, glowDrawableId, null);
       overscrollGlow.setColorFilter(res.getColor(colorID), PorterDuff.Mode.SRC_ATOP);
 
