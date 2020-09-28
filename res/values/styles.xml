@@ -14,7 +14,7 @@
   
   
   <style name="TaskItemButtonStyle">
-    <item name="android:layout_width">40dp</item>
+    <item name="android:layout_width">@dimen/task_item_button_width</item>
     <item name="android:layout_height">match_parent</item>
     <item name="android:tint">#777</item>
     <item name="android:background">@drawable/task_list_item_button_background</item>

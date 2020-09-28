@@ -18,4 +18,6 @@
   <string name="action_clear">Clear</string>
   <string name="action_save">Save</string>
   <string name="action_import_text">Import Text</string>
+  
+  <string name="ic_add">@drawable/ic_add_black_24dp</string>
 </resources>
