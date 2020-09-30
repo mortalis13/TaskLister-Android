@@ -30,6 +30,10 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 import android.widget.EditText;
 
+import android.support.v4.content.ContextCompat;
+import android.Manifest;
+import android.content.pm.PackageManager;
+
 
 public class MainActivity extends AppCompatActivity {
   
@@ -56,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
     context = this;
     Fun.setContext(context);
     DatabaseManager.init(context);
+    
+    requestAppPermissions(context);
     
     init();
     
@@ -103,6 +109,15 @@ public class MainActivity extends AppCompatActivity {
   
   
 // ------------------------------------------------ Actions ------------------------------------------------
+  
+  private void requestAppPermissions(Context context) {
+    boolean isReadGranted = ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+    if (isReadGranted) return;
+    
+    requestPermissions(new String[] {
+      Manifest.permission.READ_EXTERNAL_STORAGE,
+    }, Vars.APP_PERMISSION_REQUEST_ACCESS_EXTERNAL_STORAGE);
+  }
   
   private void init() {
     filePickerDialog = new FilePickerDialog(context);
