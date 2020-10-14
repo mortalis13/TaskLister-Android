@@ -10,5 +10,5 @@ Simple todo list
 
 ## Screenshots
 
-![Image_1](_img/tasklister-1_1.png)<br>
+![Image_1](_img/tasklister-1_1.png)<br><br>
 ![Image_2](_img/tasklister-2_1.png)<br>
