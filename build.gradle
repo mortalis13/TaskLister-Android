@@ -1,4 +1,4 @@
-// Gradle 4.3.1
+// gradle-6.7
 // jdk1.8.0_91
 
 apply plugin: 'com.android.application'
@@ -13,7 +13,7 @@ buildscript {
     }
   }
   dependencies {
-    classpath 'com.android.tools.build:gradle:3.0.1'
+    classpath 'com.android.tools.build:gradle:4.1.0'
   }
 }
 
@@ -28,11 +28,38 @@ allprojects {
 
 // -- app
 android {
-  compileSdkVersion 26
+  compileSdkVersion 29
   
   defaultConfig {
     applicationId "org.mortalis.tasklister"
     vectorDrawables.useSupportLibrary = true
+    
+    versionCode 132
+    versionName String.format('%d.%d.%d', (int)(versionCode/10/10), (int)(versionCode/10)%10, versionCode%10)
+    
+    minSdkVersion 16
+    targetSdkVersion 29
+    
+    resValue "string", "app_version", versionName
+  }
+  
+  signingConfigs {
+    release {
+      storeFile file("release/tasklister-release-key.jks")
+      storePassword "tasklister"
+      keyAlias "tasklister-alias"
+      keyPassword "tasklister"
+    }
+  }
+  
+  buildTypes {
+    release {
+      minifyEnabled true
+      // shrinkResources true
+      debuggable false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+      signingConfig signingConfigs.release
+    }
   }
   
   compileOptions {
@@ -49,9 +76,14 @@ android {
       assets.srcDirs 'assets'
     }
 
-    instrumentTest.setRoot('tests')
     debug.setRoot('build-types/debug')
     release.setRoot('build-types/release')
+  }
+  
+  lintOptions {
+    // checkReleaseBuilds false
+    // abortOnError false
+    disable "ReferenceType"
   }
 }
 
